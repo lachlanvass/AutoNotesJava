@@ -1,14 +1,25 @@
 package sample;
 
 import javafx.scene.control.TextArea;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+
+import java.util.HashMap;
 
 public class ConsoleTextWriter extends TextArea {
 
     private int caretPosition;
     private int lineStartCaretPosition = 0;
-    private String prompt = "- ";
+    protected String prompt = "- ";
+    protected HashMap<String, Runnable> commandHashMap;
 
+    public ConsoleTextWriter() {
 
+    }
+
+    public void setCommands(HashMap commands) {
+        commandHashMap = commands;
+    }
     public String readLine() {
         this.updateCaretPosition();
         return this.getText(lineStartCaretPosition, caretPosition);
@@ -34,20 +45,65 @@ public class ConsoleTextWriter extends TextArea {
         this.appendText(prompt);
     }
 
-    public void onNewLine(){
-
-        if (this.readLine().contains("copy")) {
-            this.copyLine();
-            this.scrollDown();
-        }
-        this.setLineStartCaretPosition();
-        this.resetPrompt();
+    private void replaceLineText(String replacement) {
+        this.deleteText(lineStartCaretPosition, caretPosition);
+        this.appendText(prompt + replacement + "\n");
     }
 
-    public void copyLine() {
-        this.selectCurrentLine();
-        this.copy();
-        this.deselect();
+    private void copyToClipboard(String input) {
+        final ClipboardContent content = new ClipboardContent();
+        content.putString(input);
+        Clipboard.getSystemClipboard().setContent(content);
+    }
+
+    public void replaceText(String input, boolean toCopy) {
+
+        this.replaceLineText(input);
+        if (toCopy) {
+            this.copyToClipboard(input);
+        }
+    }
+
+    private boolean lineContains(String input) {
+        return this.readLine().contains(input);
+    }
+
+    private boolean lineEndsWith(String input) {
+
+        /* Must include new line for it to work with return key press */
+        return this.readLine().endsWith(input + "\n");
+
+    }
+
+    private void runCommand(String command) {
+        try {
+            commandHashMap.get(command).run();
+        }
+        catch (NullPointerException io) {
+            System.out.println("Attempted command. Failed. Command: " + command);
+        }
+    }
+
+    private boolean commandRecognized(String command) {
+        return commandHashMap.containsKey(command);
+    }
+
+    public String parseCommand() {
+        String command = this.readLine().replace(prompt, ""); // strip prompt string
+        command = command.replace("\n", "");
+
+        return command;
+    }
+
+    public void onNewLine(){
+        String command = parseCommand();
+        if (this.commandHashMap.containsKey(command)) {
+
+            runCommand(command);
+        }
+
+        this.setLineStartCaretPosition();
+        this.resetPrompt();
     }
 
     public void copyAll() {
@@ -65,6 +121,15 @@ public class ConsoleTextWriter extends TextArea {
 
     public void clearScreen() {
         this.clear();
-        this.positionCaret(0);
+        this.requestFocus();
+        this.setLineStartCaretPosition();
     }
+
+    protected void newNote() {
+        this.copyAll();
+        this.clearScreen();
+    }
+
 }
+
+// TODO although screen is cleared, populte seperate section of app which contains the previous note in condensed form.
