@@ -54,8 +54,8 @@ public class AutoNotesTextWriter extends ConsoleTextWriter{
 
         // SUPPORT INFORMATION - NOT FOR CUSTOMERS
 
-        commandHashMap.put("aps", generateReplaceTextRunnable("11059155", false)); // Give user option to set their own APS number
-        commandHashMap.put("wcid", generateReplaceTextRunnable("111907", false)); // give support info a place to just be read
+        commandHashMap.put("aps", generateReplaceTextRunnable("APS: 11059155", false)); // Give user option to set their own APS number
+        commandHashMap.put("wcid", generateReplaceTextRunnable("WCID: 111907", false)); // give support info a place to just be read
 
 
         // CONTACT SOMEONE ELSE

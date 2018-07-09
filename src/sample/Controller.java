@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.Console;
 import java.security.Key;
 import java.text.SimpleDateFormat;
@@ -25,12 +26,13 @@ public class Controller {
     @FXML
     AutoNotesTextWriter ctx_main;
     @FXML
-    Button btn_main;
+    Button btn_prev;
+
+    @FXML Button btn_help;
 
     /* GLOBAL DATA */
 
-    HashMap<String, Runnable> commands = new HashMap<>();
-    ArrayList<String> notesHistory = new ArrayList<>();
+    private ArrayList<String> notesHistory = new ArrayList<>();
 
     /* METHODS */
 
@@ -38,6 +40,11 @@ public class Controller {
 
         PreviousNotesScreen previousNotesScreen = new PreviousNotesScreen(notesHistory);
         previousNotesScreen.show();
+    }
+
+    @FXML private void showHelpScreen(ActionEvent event) {
+        HelpScreen helpScreen = new HelpScreen();
+        helpScreen.show();
     }
     @FXML private void onEnter(KeyEvent event) {
 
@@ -54,16 +61,6 @@ public class Controller {
         }
     }
 
-    @FXML private void clearScreen(ActionEvent event) {
-        ctx_main.clearScreen();
-    }
-
-    @FXML private void consoleClicked(MouseEvent event) {
-
-        if (!ctx_main.isFocused()) {
-            ctx_main.setText("- ");
-        }
-    }
 
     private void appendNotesHistoryList(String input, boolean endOfNote) {
         // TODO Print list backwards - most recent first
@@ -82,14 +79,6 @@ public class Controller {
         }
     }
 }
-
-    // TODO use hotkey to copy text to clipboard
-
     // TODO allow switching to dark theme with button. (Just CSS file and reload application)
 
-//    @FXML private void enterPressed(KeyEvent event) {
-//
-//
-//
-//    }
 

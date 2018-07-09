@@ -12,6 +12,7 @@ public class ConsoleTextWriter extends TextArea {
     private int lineStartCaretPosition = 0;
     protected String prompt = "- ";
     protected HashMap<String, Runnable> commandHashMap;
+    protected String outputText;
 
     public ConsoleTextWriter() {
 
@@ -48,6 +49,13 @@ public class ConsoleTextWriter extends TextArea {
     private void replaceLineText(String replacement) {
         this.deleteText(lineStartCaretPosition, caretPosition);
         this.appendText(prompt + replacement + "\n");
+
+        // Alter state of output
+        setOutputText(replacement);
+    }
+
+    private void setOutputText(String input) {
+        outputText = input;
     }
 
     private void copyToClipboard(String input) {

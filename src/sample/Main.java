@@ -14,7 +14,9 @@ public class Main extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("AutoNotes");
-        primaryStage.setScene(new Scene(root, 500, 250));
+        primaryStage.setScene(new Scene(root, 300, 400));
+        primaryStage.setMaxHeight(500);
+        primaryStage.setMaxWidth(500);
         primaryStage.show();
     }
 
