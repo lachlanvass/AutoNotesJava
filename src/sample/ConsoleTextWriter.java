@@ -1,8 +1,10 @@
 package sample;
 
+import javafx.event.EventHandler;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.MouseEvent;
 
 import java.util.HashMap;
 
@@ -10,12 +12,17 @@ public class ConsoleTextWriter extends TextArea {
 
     private int caretPosition;
     private int lineStartCaretPosition = 0;
-    protected String prompt = "- ";
-    protected HashMap<String, Runnable> commandHashMap;
-    protected String outputText;
+    String prompt = "> ";
+    HashMap<String, Runnable> commandHashMap;
+    String outputText;
+    boolean hasBeenClicked = false;
 
     public ConsoleTextWriter() {
 
+    }
+
+    public void setPrompt(String prompt) {
+        this.prompt = prompt;
     }
 
     public void setCommands(HashMap commands) {
@@ -47,8 +54,29 @@ public class ConsoleTextWriter extends TextArea {
     }
 
     private void replaceLineText(String replacement) {
+        // Delete current line
         this.deleteText(lineStartCaretPosition, caretPosition);
-        this.appendText(prompt + replacement + "\n");
+        this.appendText(prompt);
+
+        //
+        StringBuilder output = new StringBuilder();
+        output.append(prompt);
+
+        // Use ^ to represent newline chars Loop through replacment text and identify new line characters
+        // If one exists,
+
+
+        for (short i = 0; i < replacement.length(); i++) {
+            if (replacement.charAt(i) == '^') {
+                this.appendText("\n");
+            }
+            else {
+                this.appendText(Character.toString(replacement.charAt(i)));
+            }
+        }
+
+        // Reached end of string. Go to new line.
+        this.appendText("\n");
 
         // Alter state of output
         setOutputText(replacement);
@@ -138,6 +166,17 @@ public class ConsoleTextWriter extends TextArea {
         this.clearScreen();
     }
 
+    public void checkPromptCharTextField(PromptCharTextField tf) {
+
+        String tf_promptChar = tf.getPromptChar();
+        tf_promptChar += " ";
+        this.prompt = tf_promptChar;
+
+    }
+
+    public String getOutputText() {
+        return outputText;
+    }
 }
 
 // TODO although screen is cleared, populte seperate section of app which contains the previous note in condensed form.

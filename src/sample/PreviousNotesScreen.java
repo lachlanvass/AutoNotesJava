@@ -8,9 +8,11 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+// TODO Save output of commands, not just the command shortcuts
+
 public class PreviousNotesScreen extends BorderPane {
     private Stage stage = new Stage();
-    TextArea contents = new TextArea();
+    private TextArea contents = new TextArea();
     public PreviousNotesScreen(ArrayList<String> inputs) {
 
         populateContents(inputs);
@@ -23,7 +25,7 @@ public class PreviousNotesScreen extends BorderPane {
 
 
     }
-    public void show() {
+    void show() {
         stage.showAndWait();
     }
 

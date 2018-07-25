@@ -78,7 +78,7 @@ public class AutoNotesTextWriter extends ConsoleTextWriter{
 
     }
 
-    private Runnable generateReplaceTextRunnable(String input, boolean toCopy) {
+    protected Runnable generateReplaceTextRunnable(String input, boolean toCopy) {
         return () -> this.replaceText(input, toCopy);
     }
 

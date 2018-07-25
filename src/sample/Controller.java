@@ -2,21 +2,12 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
-import javax.swing.*;
-import java.io.Console;
-import java.security.Key;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -24,17 +15,26 @@ public class Controller {
 
     /* FXML COMPONENTS */
     @FXML
-    AutoNotesTextWriter ctx_main;
+    FileInputTextWriter ctx_main;
     @FXML
     Button btn_prev;
 
     @FXML Button btn_help;
+
+    @FXML
+    PromptCharTextField tf_promptChar;
+
 
     /* GLOBAL DATA */
 
     private ArrayList<String> notesHistory = new ArrayList<>();
 
     /* METHODS */
+
+    @FXML private void showShortcuts(ActionEvent event) throws IOException {
+        RulesManagerScreen rms = new RulesManagerScreen();
+        rms.show();
+    }
 
     @FXML private void showPreviousNotes(ActionEvent event){
 
@@ -47,7 +47,7 @@ public class Controller {
         helpScreen.show();
     }
     @FXML private void onEnter(KeyEvent event) {
-
+        ctx_main.checkPromptCharTextField(tf_promptChar);
         ctx_main.updateCaretPosition();
         if (event.getCode().equals(KeyCode.ENTER)) {
 
