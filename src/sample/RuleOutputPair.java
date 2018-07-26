@@ -5,10 +5,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 
-import java.awt.*;
 
 public class RuleOutputPair extends GridPane {
 
@@ -17,11 +15,10 @@ public class RuleOutputPair extends GridPane {
     TextField outputContents = new TextField();
     Label ruleLabel = new Label("Rule: ");
     Label outputLabel = new Label("Output: ");
+    private String RuleString;
     public RuleOutputPair(String rule, String output) {
 
-
-        setDeleteButtonHandler();
-
+        RuleString = rule;
         ruleContents.setText(rule);
         outputContents.setText(output);
 
@@ -29,7 +26,7 @@ public class RuleOutputPair extends GridPane {
         this.add(ruleContents, 1, 0);
         this.add(outputLabel, 2, 0);
         this.add(outputContents, 3, 0);
-        this.add(deleteButton, 4, 0);
+        //this.add(deleteButton, 4, 0);
 
 
     }
@@ -43,5 +40,9 @@ public class RuleOutputPair extends GridPane {
 
             }
         });
+    }
+
+    public String getRuleString() {
+        return RuleString;
     }
 }

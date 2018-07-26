@@ -18,7 +18,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         // TODO update file path to a more generic version for production version
-        RulesCSVReader rules = new RulesCSVReader("D:\\Lachlan\\IdeaProjects\\TextHelper\\src\\rules.csv", ",");
 
         //TODO Add font size controller
 

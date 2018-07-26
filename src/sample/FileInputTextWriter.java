@@ -10,7 +10,7 @@ public class FileInputTextWriter extends ConsoleTextWriter {
     private ArrayList<String> inputsList = new ArrayList<>();
     private ArrayList<String> outputsList = new ArrayList<>();
     private ArrayList<Boolean> toCopyList = new ArrayList<>();
-    String fileSource = "D:\\Lachlan\\IdeaProjects\\TextHelper\\src\\rules.csv";
+    String fileSource = "D:\\Lachlan\\IdeaProjects\\TextHelper\\rules.csv";
 
     public String finishingChar = "--";
     public FileInputTextWriter() throws IOException {
