@@ -105,13 +105,13 @@ public class RulesManagerScreen extends ScrollPane {
 
     public void reload() throws IOException {
         System.out.println("Reload start");
-        stage.close();
+        //stage.close();
 
-        // Clear hashmap
+        // Clear hash map
         shortCutsAndOutputs.clear();
 
         // Empty grid of children
-        this.getChildren().removeAll(this.getChildren());
+        grid.getChildren().removeAll(grid.getChildren());
 
         // Read new fileData
         csvReader = new RulesCSVReader(fileSource, ",");
@@ -120,6 +120,7 @@ public class RulesManagerScreen extends ScrollPane {
         this.populateGrid();
         this.setContent(grid);
         stage.show();
+
         System.out.println("Reload end");
     }
 
