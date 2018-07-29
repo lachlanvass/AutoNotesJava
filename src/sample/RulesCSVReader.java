@@ -42,8 +42,15 @@ public class RulesCSVReader extends CSVReader {
             String[] data = line.split(this.Separator);
             this.inputList.add(data[0]);
             this.outputList.add(data[1]);
-            this.toCopyList.add(this.parseBoolean(data[2]));
+
+            try {
+                // If missing data, set to false.
+                this.toCopyList.add(this.parseBoolean(data[2]));
             }
+            catch (IndexOutOfBoundsException e){
+                this.toCopyList.add(false);
+            }
+        }
 
             br.close();
     }
@@ -83,7 +90,7 @@ public class RulesCSVReader extends CSVReader {
         else {
             toCopyString = "false";
         }
-        bw.write(shortCut + "," + output + "," + toCopyString);
+        bw.write(shortCut + "," + output + "," + toCopyString + System.lineSeparator());
 
         bw.close();
     }

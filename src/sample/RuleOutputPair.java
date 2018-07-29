@@ -19,6 +19,11 @@ public class RuleOutputPair extends GridPane {
     public RuleOutputPair(String rule, String output) {
 
         RuleString = rule;
+
+        // Strip possible whitespace
+        rule = rule.trim();
+        output = output.trim();
+
         ruleContents.setText(rule);
         outputContents.setText(output);
 
@@ -26,8 +31,6 @@ public class RuleOutputPair extends GridPane {
         this.add(ruleContents, 1, 0);
         this.add(outputLabel, 2, 0);
         this.add(outputContents, 3, 0);
-        //this.add(deleteButton, 4, 0);
-
 
     }
 
@@ -36,8 +39,6 @@ public class RuleOutputPair extends GridPane {
             @Override
             public void handle(ActionEvent event) {
                 RuleOutputPair.this.getChildren().removeAll(ruleLabel, ruleContents, outputLabel, outputContents, deleteButton);
-                System.out.println("Should work");
-
             }
         });
     }
