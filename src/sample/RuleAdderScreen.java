@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,6 +21,28 @@ public class RuleAdderScreen extends GridPane {
     private Button confirm = new Button("Confirm");
 
     private RulesManagerScreen parent;
+
+    private EventHandler confirmEvent = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            parent.setShortCutString(shortCut.getText());
+            parent.setNewOutputString(output.getText());
+            try {
+                parent.addNewRuleToFile();
+            }
+            catch (IOException ioe) {
+                System.out.println("IO EXCEPTION FROM RULESADDERSCREEN.java");
+            }
+
+            stage.close();
+            try {
+                parent.reload();
+            }
+            catch (IOException ioe) {
+                System.out.println("IO EXCEPTION FROM RULESADDERSCREEN.java");
+            }
+        }
+    };
     public RuleAdderScreen(RulesManagerScreen rulesManager) {
         parent = rulesManager;
         initData();
@@ -29,27 +52,10 @@ public class RuleAdderScreen extends GridPane {
 
     private void initData() {
 
-        confirm.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                parent.setShortCutString(shortCut.getText());
-                parent.setNewOutputString(output.getText());
-                try {
-                    parent.addNewRuleToFile();
-                }
-                catch (IOException ioe) {
-                    System.out.println("IO EXCEPTION FROM RULESADDERSCREEN.java");
-                }
+        confirm.setOnAction(confirmEvent);
+        // Press enter on output text field to activate event
+        output.setOnAction(confirmEvent);
 
-                stage.close();
-                try {
-                    parent.reload();
-                }
-                catch (IOException ioe) {
-                    System.out.println("IO EXCEPTION FROM RULESADDERSCREEN.java");
-                }
-            }
-        });
         Scene scene = new Scene(this, 400, 100);
         stage.setScene(scene);
         stage.setTitle("Add a new rule...");

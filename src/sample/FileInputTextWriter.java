@@ -14,11 +14,25 @@ public class FileInputTextWriter extends ConsoleTextWriter {
 
     public String finishingChar = "--";
     public FileInputTextWriter() throws IOException {
+        populateLists();
+        loadCommands();
 
+    }
+
+
+    private Runnable generateReplaceTextRunnable(String input, boolean toCopy) {
+        return () -> this.replaceText(input, toCopy);
+    }
+
+    private void populateLists() throws IOException{
         RulesCSVReader csvReader = new RulesCSVReader(fileSource, ",");
         this.inputsList = csvReader.getInputList();
         this.outputsList = csvReader.getOutputList();
         this.toCopyList = csvReader.getToCopyList();
+
+    }
+
+    private void loadCommands() {
 
         commandHashMap = new HashMap<>();
 
@@ -36,10 +50,20 @@ public class FileInputTextWriter extends ConsoleTextWriter {
             counter++;
         }
 
-
     }
 
-    private Runnable generateReplaceTextRunnable(String input, boolean toCopy) {
-        return () -> this.replaceText(input, toCopy);
+    // TODO add reload method so when rules manager screen closes this updates its files
+
+    public void reload() throws IOException {
+
+        // Empty lists and repopulate with new data from file
+        this.inputsList.clear();
+        this.outputsList.clear();
+        this.toCopyList.clear();
+
+        this.populateLists();
+        loadCommands();
+
+
     }
 }

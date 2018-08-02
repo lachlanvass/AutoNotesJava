@@ -1,10 +1,8 @@
 package sample;
 
-import javafx.event.EventHandler;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.MouseEvent;
 
 import java.util.HashMap;
 
@@ -166,9 +164,9 @@ public class ConsoleTextWriter extends TextArea {
         this.clearScreen();
     }
 
-    public void checkPromptCharTextField(PromptCharTextField tf) {
+    public void checkPromptCharTextField(PromptCharDropDown tf) {
 
-        String tf_promptChar = tf.getPromptChar();
+        String tf_promptChar = (String) tf.getValue();
         tf_promptChar += " ";
         this.prompt = tf_promptChar;
 

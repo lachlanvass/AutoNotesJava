@@ -3,7 +3,6 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -22,7 +21,7 @@ public class Controller {
     @FXML Button btn_help;
 
     @FXML
-    PromptCharTextField tf_promptChar;
+    PromptCharDropDown tf_promptChar;
 
 
     /* GLOBAL DATA */
@@ -32,7 +31,7 @@ public class Controller {
     /* METHODS */
 
     @FXML private void showShortcuts(ActionEvent event) throws IOException {
-        RulesManagerScreen rms = new RulesManagerScreen();
+        RulesManagerScreen rms = new RulesManagerScreen(ctx_main);
         rms.show();
     }
 

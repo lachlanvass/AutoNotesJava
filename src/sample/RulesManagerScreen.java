@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,13 +25,21 @@ public class RulesManagerScreen extends ScrollPane {
     private String newShortCutString;
     private String newOutputString;
     private GridPane grid = new GridPane();
-    public RulesManagerScreen() throws IOException {
+
+    FileInputTextWriter parent;
+    public RulesManagerScreen(FileInputTextWriter parentTextWriter) throws IOException {
+        parent = parentTextWriter;
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                // TODO make it so this discards changes if not saved?
+            }
+        });
         initData();
         populateShortCutsAndOutputs();
         populateGrid();
         this.setPannable(true);
         this.setContent(grid);
-
     }
 
     private void initData() throws IOException{
@@ -62,7 +71,22 @@ public class RulesManagerScreen extends ScrollPane {
             }
         });
 
+        Button confirmButton = new Button("Confirm");
+        confirmButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    parent.reload();
+                    stage.close();
+                }
+                catch (IOException ioe) {
+                    System.out.println("IO Exception from RulesManagerScreen.java");
+                }
+            }
+        });
+
         grid.add(newRuleButton, 3, 0);
+        grid.add(confirmButton, 4, 0);
         short rowCounter = 1;
 
         Iterator it = shortCutsAndOutputs.entrySet().iterator();
@@ -144,5 +168,9 @@ public class RulesManagerScreen extends ScrollPane {
 
     public String getNewOutputString() {
         return newOutputString;
+    }
+
+    public void setParent(FileInputTextWriter parent) {
+        this.parent = parent;
     }
 }

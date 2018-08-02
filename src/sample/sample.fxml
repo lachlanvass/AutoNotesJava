@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.geometry.Insets?>
 <?import sample.FileInputTextWriter?>
-<?import sample.PromptCharTextField?>
+<?import sample.PromptCharDropDown?>
 <BorderPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
 
     <padding>
@@ -22,8 +22,9 @@
           <rowConstraints />
 
           <Button id="btn_prev" fx:id="btn_prev" mnemonicParsing="false" text="Previous notes" onAction="#showPreviousNotes" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-          <Button id="btn_help" fx:id="btn_help" text="Help" GridPane.columnIndex="0" GridPane.rowIndex="2" onAction="#showHelpScreen" alignment="CENTER"/>
-          <PromptCharTextField fx:id="tf_promptChar" text="-" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+          <Button id="btn_help" fx:id="btn_help" text="Help" GridPane.columnIndex="0" GridPane.rowIndex="1" onAction="#showHelpScreen" alignment="CENTER"/>
+          <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="Prompt Character"/>
+          <PromptCharDropDown fx:id="tf_promptChar" GridPane.columnIndex="0" GridPane.rowIndex="3" />
           <Button fx:id="btn_rules" text="Rules" GridPane.columnIndex="0" GridPane.rowIndex="4" onAction="#showShortcuts"/>
 
       </GridPane>
@@ -32,7 +33,7 @@
        <FileInputTextWriter fx:id="ctx_main" onKeyPressed="#onEnter" prefHeight="200.0" prefWidth="200.0" promptText="Type..." wrapText="true" BorderPane.alignment="CENTER" />
    </center>
     <bottom>
-        <Label text="Prototype developed by Lachlan Vass for Australia Post. Send questions or suggestions to Lachlan.Vass@auspost.com.au" wrapText="true" />
+        <Label text="Prototype developed by Lachlan Vass" wrapText="true" />
     </bottom>
 
 </BorderPane>

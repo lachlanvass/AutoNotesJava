@@ -32,7 +32,7 @@ public class HelpScreen extends BorderPane {
 
     private void populateContents() {
 
-        contents.setText("Welcome to AUTONOTES, an interactive text editor specially designed for our work at Australia Post.\n\n" +
+        contents.setText("Welcome to AUTONOTES, an interactive text editor. \n\n" +
                 "It helps speed up the process of writing meaningful notes, allowing more detailed casa information to be captured. It also \n\n" +
                 "allows agents to focus more on customer interaction and less on typing out the same notes over and over again. \n \n");
 
