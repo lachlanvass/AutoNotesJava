@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.geometry.Insets?>
+<?import autonotes.FileInputTextWriter?>
+<?import autonotes.PromptCharDropDown?>
+<BorderPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="autonotes.Controller">
+
+    <padding>
+        <Insets left="10" right="40" top="10" bottom="10" />
+    </padding>
+
+    <!-- LEFT SIDE BAR -->
+   <left>
+      <GridPane vgap="10" hgap="30" alignment="TOP_CENTER" >
+          <columnConstraints />
+          <rowConstraints />
+          <rowConstraints />
+          <rowConstraints />
+          <rowConstraints />
+          <rowConstraints />
+
+            <padding>
+                <Insets right="20" />
+            </padding>
+
+          <Button fx:id="btn_rules" text="Rules" GridPane.columnIndex="0" GridPane.rowIndex="0" onAction="#showShortcuts"/>
+          <Button id="btn_prev" fx:id="btn_prev" mnemonicParsing="false" text="History" onAction="#showPreviousNotes" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+          <PromptCharDropDown fx:id="tf_promptChar" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+          <Button id="btn_help" fx:id="btn_help" text="Help" GridPane.columnIndex="0" GridPane.rowIndex="3" onAction="#showHelpScreen" alignment="CENTER"/>
+
+
+      </GridPane>
+   </left>
+   <center>
+       <FileInputTextWriter fx:id="ctx_main" onKeyPressed="#onEnter" prefHeight="200.0" prefWidth="200.0" promptText="Type..." wrapText="true" BorderPane.alignment="CENTER" />
+   </center>
+
+</BorderPane>
